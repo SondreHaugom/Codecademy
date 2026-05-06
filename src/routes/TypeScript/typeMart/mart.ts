@@ -40,5 +40,4 @@ Shipping: $${shipping.toFixed(2)}
 Total:  $${total.toFixed(2)}
 
 `
-
 )
