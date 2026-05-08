@@ -6,7 +6,7 @@ type Course = {
   studyGroupId: number;
   title: string;
   keywords: string[];
-  eventType: 'course';
+  eventType: string;
 }
 
 type StudyGroup = {
@@ -14,16 +14,26 @@ type StudyGroup = {
     courseId: number,
     title: string;
     keywords: string[];
-    eventType: 'group';
+    eventType: string;
 }
 
 type SearchEventsOptions = {
     query: string;
-    eventType: 'course' | 'group';
+    eventType: 'courses' | 'groups';
 }
 
 function searchEvents(options: SearchEventsOptions) {
-    const events = options.eventType === 'course' ? courses : studyGroups;
-     
+    const events: (Course | StudyGroup)[] = options.eventType === 'courses' ? courses : studyGroups;
+    events.filter((event: Course | StudyGroup) => {})
+
+    
+    return events.filter((event: Course | StudyGroup) => {
+        if (typeof options.query === 'number') {
+            return event.id === options.query;
+        }
+        if (typeof options.query === 'string') {
+            return event.keywords.includes(options.query);
+        }
+    })
 
 }   
